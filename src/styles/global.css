@@ -1,0 +1,19 @@
+:root { color-scheme: light dark; font-family: ui-serif, Georgia, serif; color: #20201d; background: #f8f7f2; }
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.6; }
+a { color: inherit; text-decoration-color: #9d4f31; text-underline-offset: .16em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, summary:focus-visible, input:focus-visible { outline: 3px solid #d06a43; outline-offset: 3px; }
+.site-header { max-width: 78rem; margin: 0 auto; padding: 1.25rem 2rem; border-bottom: 1px solid #d5d2c8; display: grid; grid-template-columns: 1fr minmax(17rem, 28rem); gap: 2rem; align-items: start; }
+.site-name { font-family: ui-monospace, monospace; font-size: .88rem; font-weight: 700; text-decoration: none; }
+main { max-width: 78rem; margin: 0 auto; padding: 4rem 2rem; }
+.search label, .search-status { display: block; font-family: ui-monospace, monospace; font-size: .72rem; letter-spacing: .04em; }
+.search input { width: 100%; margin-top: .25rem; padding: .5rem .65rem; border: 1px solid #aaa79c; border-radius: 0; background: transparent; color: inherit; font: inherit; }
+.search-status { min-height: 1.2rem; margin: .4rem 0; }
+.search-results { padding: 0; margin: .4rem 0 0; list-style: none; font-size: .88rem; }
+.search-results li { margin: .75rem 0; }.search-results p { margin: .15rem 0 0; color: #5d5b54; }.search-results mark { background: #ecd99c; }
+.index-intro { max-width: 46rem; margin-bottom: 4rem; }.eyebrow { margin: 0 0 .5rem; font: .72rem ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; color: #9d4f31; }.index-intro h1, .term h1 { font-size: clamp(2.4rem, 7vw, 5rem); line-height: 1; letter-spacing: -.04em; margin: 0; }.index-intro > p:last-child { font-size: 1.25rem; max-width: 38rem; }
+.curriculum-section { margin: 0 0 2.5rem; }.curriculum-section h2, .related h2 { font: 700 .78rem ui-monospace, monospace; letter-spacing: .04em; }.curriculum-section ul, .related ul { list-style: none; padding: 0; }.curriculum-section li { margin: .35rem 0; }.curriculum-section .current { font-weight: 700; color: #9d4f31; text-decoration: none; }
+.term-layout { display: grid; grid-template-columns: 15rem minmax(0, 45rem); gap: 5rem; }.desktop-nav { border-right: 1px solid #d5d2c8; padding-right: 1.5rem; }.term { min-width: 0; }.description { font-size: 1.3rem; margin: 1.25rem 0 2.5rem; }.prose > :first-child { margin-top: 0; }.prose h2 { margin-top: 2.5rem; font-size: 1.65rem; }.prose table { display: block; overflow-x: auto; border-collapse: collapse; }.prose th, .prose td { padding: .5rem; border: 1px solid #d5d2c8; text-align: left; }.related { margin-top: 3rem; border-top: 1px solid #d5d2c8; }.adjacent { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #d5d2c8; }.adjacent a:last-child { text-align: right; }.adjacent span { display: block; font: .72rem ui-monospace, monospace; color: #5d5b54; }.mobile-nav { display: none; }
+@media (max-width: 700px) { .site-header { grid-template-columns: 1fr; gap: 1rem; padding: 1rem; } main { padding: 2.5rem 1rem; }.term-layout { display: block; }.desktop-nav { display: none; }.mobile-nav { display: block; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #d5d2c8; }.mobile-nav summary { cursor: pointer; font: .8rem ui-monospace, monospace; }.mobile-nav nav { margin-top: 1.5rem; }.adjacent { gap: 1rem; } }
+@media (prefers-color-scheme: dark) { :root { color: #e7e4db; background: #1d1d1a; } .site-header, .desktop-nav, .related, .adjacent, .mobile-nav { border-color: #48473f; } .search input { border-color: #77756c; }.search-results p, .adjacent span { color: #bbb8ad; }.search-results mark { background: #65552a; color: inherit; } }
