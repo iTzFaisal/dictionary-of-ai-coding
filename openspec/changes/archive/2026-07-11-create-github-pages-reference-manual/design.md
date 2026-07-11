@@ -51,7 +51,7 @@ Alternatives considered:
 
 ### Deploy Pages through GitHub Actions
 
-Add a dedicated workflow that installs dependencies, builds the static site, uploads the generated artifact, and deploys it using GitHub Pages Actions. It will run on pushes to `github-pages` and support manual dispatch while the site is being tested. The existing README freshness and webhook workflows remain separate.
+Add a dedicated workflow that installs dependencies, builds the static site, uploads the generated artifact, and deploys it using GitHub Pages Actions. It will run on pushes to `main` and `github-pages` and support manual dispatch. The existing README freshness and webhook workflows remain separate.
 
 Pages must be configured in the GitHub repository to use GitHub Actions as its deployment source. The implementation will document this one-time repository setting.
 
@@ -73,7 +73,7 @@ The interface will prioritize text density, legible typography, strong contrast,
 1. Add the static-site application, canonical-content loader, and visual reference layout.
 2. Add static search generation and verify the built output locally.
 3. Add the independent Pages workflow and configure the repository's Pages source to GitHub Actions.
-4. Deploy from `github-pages`, then verify the index, a direct term URL, internal links, mobile navigation, and search at the project Pages URL.
+4. Deploy from `main` or `github-pages`, then verify the index, a direct term URL, internal links, mobile navigation, and search at the project Pages URL.
 5. Roll back by disabling the Pages workflow or Pages deployment source; the current README and AIHero publication paths continue to operate unchanged.
 
 ## Open Questions

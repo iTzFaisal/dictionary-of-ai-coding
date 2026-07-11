@@ -47,6 +47,10 @@ The site SHALL publish one stable page per dictionary term with the entry's cont
 ### Requirement: Deploy without disrupting existing publication paths
 The GitHub Pages deployment SHALL run independently of the README freshness check and the existing AIHero webhook workflow. It SHALL not alter the `aicodingdictionary.com` domain or require a custom domain for the Pages site.
 
+#### Scenario: Deploy after a main branch update
+- **WHEN** a qualifying change is pushed to `main`
+- **THEN** the Pages workflow builds and deploys the static site while the existing workflows remain configured
+
 #### Scenario: Deploy after a github-pages branch update
 - **WHEN** a qualifying change is pushed to `github-pages`
 - **THEN** the Pages workflow builds and deploys the static site while the existing workflows remain configured
