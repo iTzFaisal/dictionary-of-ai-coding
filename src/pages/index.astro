@@ -1,0 +1,14 @@
+---
+import CurriculumNav from "../components/CurriculumNav.astro";
+import ReferenceLayout from "../layouts/ReferenceLayout.astro";
+import { loadDictionary } from "../lib/dictionary";
+const dictionary = loadDictionary();
+---
+<ReferenceLayout>
+  <article class="index-intro">
+    <p class="eyebrow">Reference manual</p>
+    <h1>Dictionary of AI Coding</h1>
+    <p>A vocabulary for understanding how AI coding systems work, fail, and are directed.</p>
+  </article>
+  <div class="index-curriculum"><CurriculumNav sections={dictionary.sections} /></div>
+</ReferenceLayout>

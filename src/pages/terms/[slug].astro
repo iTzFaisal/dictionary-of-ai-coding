@@ -1,0 +1,32 @@
+---
+import CurriculumNav from "../../components/CurriculumNav.astro";
+import ReferenceLayout from "../../layouts/ReferenceLayout.astro";
+import { loadDictionary } from "../../lib/dictionary";
+const dictionary = loadDictionary();
+export function getStaticPaths() {
+  return loadDictionary().entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const position = dictionary.entries.findIndex((item) => item.term === entry.term);
+const previous = dictionary.entries[position - 1];
+const next = dictionary.entries[position + 1];
+const related = entry.relatedTerms.map((term: string) => dictionary.entriesByTerm.get(term)!);
+const base = `${import.meta.env.BASE_URL}/`;
+---
+<ReferenceLayout title={entry.term} description={entry.description}>
+  <div class="term-layout">
+    <aside class="desktop-nav"><CurriculumNav sections={dictionary.sections} currentTerm={entry.term} /></aside>
+    <details class="mobile-nav"><summary>Browse curriculum</summary><CurriculumNav sections={dictionary.sections} currentTerm={entry.term} /></details>
+    <article class="term" data-pagefind-body>
+      <p class="eyebrow">Dictionary entry</p>
+      <h1 data-pagefind-meta="title">{entry.term}</h1>
+      <p class="description">{entry.description}</p>
+      <div class="prose" set:html={entry.html} />
+      {related.length > 0 && <section class="related"><h2>Related terms</h2><ul>{related.map((item) => <li><a href={`${base}terms/${item.slug}/`}>{item.term}</a></li>)}</ul></section>}
+      <nav class="adjacent" aria-label="Adjacent terms">
+        {previous ? <a href={`${base}terms/${previous.slug}/`}><span>Previous</span>{previous.term}</a> : <span />}
+        {next ? <a href={`${base}terms/${next.slug}/`}><span>Next</span>{next.term}</a> : <span />}
+      </nav>
+    </article>
+  </div>
+</ReferenceLayout>

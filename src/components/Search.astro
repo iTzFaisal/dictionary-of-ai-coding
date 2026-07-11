@@ -1,0 +1,52 @@
+---
+const { id = "search" } = Astro.props as { id?: string };
+---
+<div class="search" data-search data-base={`${import.meta.env.BASE_URL}/`}>
+  <label for={id}>Search the dictionary</label>
+  <input id={id} type="search" autocomplete="off" placeholder="Search terms and definitions" />
+  <p class="search-status" aria-live="polite"></p>
+  <ul class="search-results" aria-live="polite"></ul>
+</div>
+<script>
+  type SearchRecord = { url: string; meta: { title: string }; excerpt: string };
+  type Pagefind = {
+    options(options: { baseUrl: string }): Promise<void>;
+    search(query: string): Promise<{ results: Array<{ data(): Promise<SearchRecord> }> }>;
+  };
+  const loadPagefind = (url: string) => new Function("url", "return import(url)")(url) as Promise<Pagefind>;
+  document.querySelectorAll<HTMLElement>("[data-search]").forEach((container) => {
+    const input = container.querySelector<HTMLInputElement>("input")!;
+    const status = container.querySelector<HTMLElement>(".search-status")!;
+    const results = container.querySelector<HTMLUListElement>(".search-results")!;
+    let pagefind: Pagefind | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const base = container.dataset.base!;
+
+    input.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        const query = input.value.trim();
+        results.replaceChildren();
+        if (!query) { status.textContent = ""; return; }
+        status.textContent = "Searching...";
+        pagefind ??= await loadPagefind(`${base}pagefind/pagefind.js`);
+        const activePagefind = pagefind;
+        await activePagefind.options({ baseUrl: base });
+        const search = await activePagefind.search(query);
+        if (!search.results.length) { status.textContent = "No matching terms found."; return; }
+        status.textContent = `${search.results.length} matching ${search.results.length === 1 ? "term" : "terms"}.`;
+        const records = await Promise.all(search.results.slice(0, 10).map((result) => result.data()));
+        for (const record of records) {
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = record.url;
+          link.textContent = record.meta.title;
+          const excerpt = document.createElement("p");
+          excerpt.innerHTML = record.excerpt;
+          item.append(link, excerpt);
+          results.append(item);
+        }
+      }, 180);
+    });
+  });
+</script>

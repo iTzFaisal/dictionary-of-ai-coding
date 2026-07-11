@@ -1,0 +1,24 @@
+---
+import Search from "../components/Search.astro";
+import "../styles/global.css";
+const { title, description } = Astro.props as { title?: string; description?: string };
+const pageTitle = title ? `${title} | Dictionary of AI Coding` : "Dictionary of AI Coding";
+const base = `${import.meta.env.BASE_URL}/`;
+---
+<!doctype html>
+<html lang="en" data-base={import.meta.env.BASE_URL}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description ?? "A reference manual for the vocabulary of AI coding."} />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a href={base} class="site-name">Dictionary of AI Coding</a>
+      <Search id="header-search" />
+    </header>
+    <main><slot /></main>
+  </body>
+</html>
